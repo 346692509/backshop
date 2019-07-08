@@ -1,0 +1,323 @@
+ {include file="hea"}
+ <body>
+ 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 权限管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+ 	<div class="page-container">
+ 		<div class="text-c">
+ 			<form class="Huiform" method="post" action="" target="_self">
+ 				<input type="text" class="input-text" style="width:250px" placeholder="权限名称" id="" name="">
+ 				<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜权限节点</button>
+ 			</form>
+ 		</div>
+ 		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onClick="modaldemo()" class="btn btn-primary radius" ><i class="Hui-iconfont">&#xe600;</i> 添加权限分类</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+ 		<input type="" id="__token__" name="__token__" value="{$Request.token}" />
+ 		<table class="table table-border table-bordered table-bg">
+ 			<thead>	
+ 				<tr>
+ 					<th scope="col" colspan="7">权限节点</th>
+ 				</tr>
+ 				<tr class="text-c">
+ 					<th width="25"><input type="checkbox"  value="" id="checkbox"></th>
+ 					<th width="40">ID</th>
+ 					<th width="200">权限名称</th>
+ 					<th width="200">权限描述</th>
+ 					<th width="100">添加时间</th>
+ 					<th width="100">操作</th>
+ 				</tr>
+ 			</thead>
+ 			<tbody>
+ 				<!-- 循环输出开始 -->
+ 				{volist name="arr" id="vo"}
+ 				<tr class="text-c" id="{$vo.id}">
+ 					<td><input type="checkbox" class="cbox" id="che" value="{$vo.id}" style=""></td>
+ 					<td>{$vo.id}</td>
+ 					<td name="name"><span class="click">{$vo.name}</span></td>
+ 					<td name="description"><span class="click">{$vo.description}</span></td>
+ 					<td>{$vo.create_time|date="Y-m-d H:i:s"}</td>
+ 					<td><a title="编辑" href="javascript:;" onClick="modaldemo1('{$vo.id}','{$vo.name}','{$vo.description}',)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_permission_del(this,'{$vo.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+ 				</tr>
+ 				{/volist}
+ 				<!-- 循环输出结束 -->
+ 			</tbody>
+ 			<!-- 添加弹窗开始 -->
+ 			<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 				<div class="modal-dialog">
+ 					<div class="modal-content radius">
+ 						<div class="modal-header">
+ 							<h3 class="modal-title">添加权限名称</h3>
+ 							<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+ 						</div>
+ 						<div class="modal-body">
+ 							<p><div class="row cl">
+ 								<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
+ 								<div class="formControls col-xs-8 col-sm-9">
+ 									<input type="text" class="input-text" value="" placeholder="" id="rolename" name="roleName">
+ 								</div>
+ 							</div><br>
+ 							<div class="row cl">
+ 								<label class="form-label col-xs-4 col-sm-3">　　备注：</label>
+ 								<div class="formControls col-xs-8 col-sm-9">
+ 									<textarea name="" cols="" rows="" id="dtion" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true"></textarea>
+ 									<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+ 								</div>
+ 							</div>
+ 						</p>
+ 					</div>
+ 					<div class="modal-footer">
+ 						<button class="btn btn-primary" id="add">确定</button>
+ 						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 		<!-- 添加弹窗结束 -->
+ 		<!-- 修改弹窗开始 -->
+ 		<div id="modal-dem" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 			<div class="modal-dialog">
+ 				<div class="modal-content radius">
+ 					<div class="modal-header">
+ 						<h3 class="modal-title">修改权限名称</h3>
+ 						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+ 					</div>
+ 					<div class="modal-body">
+ 						<p><div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="text" class="input-text" value="" placeholder="" id="rolename1" name="roleName"><input type="" name="" id="aid" hidden>
+ 							</div>
+ 						</div><br>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3">　　备注：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<textarea name="" cols="" rows="" id="dtion1" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true"></textarea>
+ 								<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+ 							</div>
+ 						</div></p>
+ 					</div>
+ 					<div class="modal-footer">
+ 						<button class="btn btn-primary" id="update">修改</button>
+ 						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 		<!-- 修改弹窗结束 -->
+ 	</table>
+ </div>
+ <!--_footer 作为公共模版分离出去-->
+ <script type="text/javascript" src="__ADMAN__/lib/jquery/1.9.1/jquery.min.js"></script> 
+ <script type="text/javascript" src="__ADMAN__/lib/layer/2.4/layer.js"></script>
+ <script type="text/javascript" src="__ADMAN__/static/h-ui/js/H-ui.min.js"></script> 
+ <script type="text/javascript" src="__ADMAN__/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+</body>
+</html>
+
+<script>
+	//令牌
+	function token(){
+		$.ajax({
+			url:"{:url('common/token')}",
+			dataType:'json',
+			success:function(res){
+				console.log(res)
+				var token=res.token
+				$('#__token__').val(token)
+			}
+		})
+	}
+	//弹窗
+	function modaldemo(){
+		$("#modal-demo").modal("show")}
+		function modaldemo1(id,name,description){
+			$("#aid").val(id)
+			$("#rolename1").val(name)
+			$("#dtion1").val(description)
+			$("#modal-dem").modal("show")}
+ 			/////////////////////////
+
+			//即时修改
+ 			$(function () {
+				//全选
+				$("#checkbox").click(function () {
+					$(":checkbox").attr("checked", true);
+				});
+				// 显示文本框并显示原值
+				$(document).on("click", ".click", function () {
+					var _this = $(this);
+					var old_val = _this.html(); // 获取要修改的值,原本的值
+					$(".focus").focus(); // 存在瑕疵，光标无法聚焦到文本最后的位置
+					_this.parent().html("<input type='text' name=" + old_val + " class='focus' value=" + old_val + " style='height: 25px;width: 100%;background-color: #F5F5F5' />"); // 显示文本框
+					$(":text").select(); // 改进，弥补瑕疵，全选文字
+				});
+				// 还原列表并修改数据
+				$(document).on("blur", ".focus", function () {
+					var _this = $(this);
+					// 获取所需参数
+					var key = _this.parent().attr("name");    //获取字段名
+					var old_val = _this.attr("name");        //获取原始值
+					var new_val = _this.val();               //获取修改值
+					var id = _this.parents("tr").attr("id"); //获取要修改的ID
+
+					//修改数据
+					$.post("{:url('permissioncate/updataAt')}",
+					{
+						key: key,
+						id: id, 
+						name: old_val,
+						rolename: new_val,
+					},
+					function(msg) {
+						console.log(msg)
+						if(msg.code==1){
+							$.Huimodalalert(msg.status,1000)
+							_this.parent().html('<span class="click">' + old_val + '</span>');
+							token()
+						}else if(msg.code==0){
+							$.Huimodalalert(msg.status,1000)
+							_this.parent().html('<span class="click">' + new_val + '</span>');
+							token()
+
+						}
+					},'json')
+				})
+			})
+
+
+ 			//修改权限名称
+ 			$('#update').click(function () {
+ 				var rolename=$('#rolename1').val()
+ 				var dtion=$('#dtion1').val()
+ 				var id=$('#aid').val()
+ 				var __token__=$('#__token__').val()
+ 				$.ajax({
+ 					url:"{:url('permissioncate/updateAction')}",
+ 					data:{
+ 						rolename:rolename,
+ 						dtion:dtion,
+ 						id:id,
+ 						__token__:__token__,
+ 						html_type:'json',
+ 					},
+ 					type:'post',
+ 					dataType:'json',
+ 					success:function(res){
+ 						console.log(res)
+ 						if (res.code==1) {
+ 							$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+ 						}
+ 						if (res.code==2) {
+ 							$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+ 						}
+ 						if (res.code==0) {
+ 							layer.msg(res.message,{icon:1,time:2000});
+ 							setTimeout(function(){window.location.reload() }, 1500);
+ 						}
+ 					}
+ 				})
+ 				token()
+ 			});
+
+ 				//多删
+ 				function datadel(){	
+ 					var __token__=$('#__token__').val()	
+ 					var result=""
+ 					var count=0
+ 					$('.cbox').each(function () {
+ 						if ($(this).is(':checked')) {
+ 							result+=$(this).val()+",";
+ 							count++;
+ 						}
+ 					})	
+ 					layer.confirm('确认要删除这'+count+'条吗？',function(index){
+ 						$.ajax({
+ 							url:"{:url('permissioncate/delAction')}",
+ 							data:{
+ 								id:result,
+ 								__token__:__token__,
+ 							},
+ 							type:'post',
+ 							dataType:'json',
+ 							success:function(res){
+ 								token()
+ 								console.log(res)
+ 								if (res.code==0) {
+ 									$('.cbox').each(function () {
+ 										if ($(this).is(':checked')) {
+ 											$(this).parents("tr").remove();
+ 										}
+ 									})	
+ 									layer.msg('删除成功',{icon:1,time:2000});
+ 								}
+ 							}	
+ 						})
+ 					});
+ 				}
+
+
+//添加权限名称
+$(document).ready(function () {
+	$('#add').click(function () {
+		var rolename=$('#rolename').val()
+		var dtion=$('#dtion').val()	
+		var __token__=$('#__token__').val()	
+		$.ajax({
+			url:"{:url('permissioncate/addAction')}",
+			data:{
+				rolename:rolename,
+				dtion:dtion,
+				__token__:__token__,
+				html_type:'json',
+			},
+			type:'post',
+			dataType:'json',
+			success:function(res){
+				console.log(res)
+				if (res.code==1) {
+					$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+					token()
+				}
+				if (res.code==2) {
+					$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+					token()
+				}
+				if (res.code==0) {
+					layer.msg(res.message,{icon:1,time:2000});
+					setTimeout(function(){window.location.reload() }, 500);
+				}
+			}
+		})
+	});
+});
+
+
+</script>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__ADMAN__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript">
+	/*管理员-权限-删除*/
+	function admin_permission_del(obj,id){
+		var __token__=$('#__token__').val()	
+		layer.confirm('确认要删除吗？',function(index){
+			$.ajax({
+				type: 'POST',
+				url:"{:url('permissioncate/delAction')}",
+				data:{
+					id:id,
+					__token__:__token__,
+				},
+				dataType: 'json',
+				success: function(data){
+					console.log(data)
+					if (data.code==0) {
+						$(obj).parents("tr").remove();
+						layer.msg('已删除!',{icon:1,time:1000});
+						
+					}if (data.code==1) {
+						$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+data.status,1500)
+					}
+				},
+			});	
+			token()	
+		});
+	}
+</script>

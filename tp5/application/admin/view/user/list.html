@@ -1,0 +1,413 @@
+ {include file="hea"}
+ <body>
+ 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+ 	<div class="page-container">
+		<div class="text-c"> 日期范围：
+			<input type="text" onfocus="" id="datemin" class="input-text Wdate" style="width:120px;">
+			-
+			<input type="text" onfocus="" id="datemax" class="input-text Wdate" style="width:120px;">
+			<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="">
+			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		</div>
+ 		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onClick="modaldemo()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+		<input type="" id="__token__" name="__token__" value="{$Request.token}" />
+		<table class="table table-border table-bordered table-bg">
+ 			<thead>
+ 				<tr>
+ 					<th scope="col" colspan="9">员工列表</th>
+ 				</tr>
+ 				<tr class="text-c">
+ 					<th width="25"><input type="checkbox" name="" value=""></th>
+ 					<th width="40">ID</th>
+ 					<th width="150">登录名</th>
+ 					<th width="90">手机</th>
+ 					<th width="150">邮箱</th>
+ 					<th>角色</th>
+ 					<th width="130">加入时间</th>
+ 					<th width="100">是否已启用</th>
+ 					<th width="100">操作</th>
+ 				</tr>
+ 			</thead>
+ 			<tbody>
+ 				{volist name="res" id="vo"}
+ 				<tr class="text-c" id="{$vo.id}">
+					<td><input type="checkbox" class="cbox" id="che" value="{$vo.id}" style=""></td>
+ 					<span hidden="">{$vo.id}</span>
+ 					<td>{$vo.id}</td>
+ 					<td name="user_name"><span class="click">{$vo.user_name}</span></td>
+ 					<td name="mobile"><span class="click">{$vo.mobile}</span></td>
+					<td>admin@mail.com</td>
+ 					<td name="name"><span class="click">{$vo.name}</span></td>
+ 					<td>{$vo.create_time|date="Y-m-d H:i:s"}</td>
+ 					<td class="td-status"><span class="label radius">已停用</span></td>
+ 					<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="updata('{$vo.id}','{$vo.user_name}','{$vo.mobile}','{$vo.rid}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'{$vo.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+ 				</tr>
+ 				{/volist}
+ 			</tbody>
+ 		</table>
+ 	</div>
+ 	<!-- 添加开始 -->
+ 	<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 		<div class="modal-dialog">
+ 			<div class="modal-content radius">
+ 				<div class="modal-header">
+ 					<h3 class="modal-title">添加管理员</h3>
+ 					<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+ 				</div>
+ 				<article class="page-container">
+ 					<form class="form form-horizontal" id="form-admin-add">
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="text" class="input-text"  value="" placeholder="请输入2-8位用户名" id="user_name" name="adminName">
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="text" class="input-text" value="" placeholder="请正确输入手机号" id="phone" name="phone" maxlength="11" >
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="text" class="input-text" placeholder="@" name="email" id="email">
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3">角色：</label>
+ 							<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+ 								<select class="select" id="role_id" size="1">
+ 									{volist name="arr" id="vo"}
+ 									<option value="{$vo.id}">{$vo.name}</option>
+ 									{/volist}
+ 								</select>
+ 							</span> </div>
+ 						</div>　　
+ 					</form>
+ 				</article>
+ 				<div class="modal-footer">
+ 					<button class="btn btn-primary" id="add">确定</button>
+ 					<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+ 				</div>
+ 			</div>
+ 		</div>
+ 		<!-- 添加结束 -->
+ 	</div>
+ 	<!-- 修改开始 -->
+ 	<div id="moda" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 		<div class="modal-dialog">
+ 			<div class="modal-content radius">
+ 				<div class="modal-header">
+ 					<h3 class="modal-title">对话框标题</h3>
+ 					<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+ 				</div>
+ 						<article class="page-container">
+ 					<form class="form form-horizontal" id="form-admin-add1">
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="text" class="input-text"  value="" placeholder="请输入2-8位用户名" id="user_name1" name="adminName">
+ 								<input type="hidden" name="" id="uid">
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password1" name="password">
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="password2" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password11" name="password2">
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="text" class="input-text" value="" placeholder="请正确输入手机号" id="phone1" name="phone" maxlength="11" >
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+ 							<div class="formControls col-xs-8 col-sm-9">
+ 								<input type="text" class="input-text" placeholder="admin@mail.com" name="email1" id="email1">
+ 							</div>
+ 						</div>
+ 						<div class="row cl">
+ 							<label class="form-label col-xs-4 col-sm-3">角色：</label>
+ 							<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+ 								<select class="select" id="role_id1" size="1">
+ 									{volist name="arr" id="vo" }
+ 									<option id="aa" value="{$vo.id}">{$vo.name}</option>	
+ 									{/volist}
+ 								</select>
+ 							</span> </div>
+ 						</div>　　
+ 					</form>
+ 				</article>
+ 				<div class="modal-footer">
+ 					<button class="btn btn-primary" id="updateAction">确定</button>
+ 					<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
+ 	<!-- 修改结束 -->
+ 	<!--_footer 作为公共模版分离出去-->
+ 	<script type="text/javascript" src="__ADMAN__/lib/jquery/1.9.1/jquery.min.js"></script> 
+ 	<script type="text/javascript" src="__ADMAN__/lib/layer/2.4/layer.js"></script>
+ 	<script type="text/javascript" src="__ADMAN__/static/h-ui/js/H-ui.min.js"></script> 
+ 	<script type="text/javascript" src="__ADMAN__/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+ 	<!--请在下方写此页面业务相关的脚本-->
+ 	<script type="text/javascript" src="__ADMAN__/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+ 	<script type="text/javascript" src="__ADMAN__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+ 	<script type="text/javascript" src="__ADMAN__/lib/laypage/1.2/laypage.js"></script>
+ 	<script>
+ 		function modaldemo(){
+ 			$("#modal-demo").modal("show")}
+		//令牌
+		function token(){
+			$.ajax({
+				url:"{:url('common/token')}",
+				dataType:'json',
+				success:function(res){
+					console.log(res)
+					var token=res.token
+					$('#__token__').val(token)
+				}
+			})
+		}
+ 				//添加权限名称
+ 				$('#add').click(function () {
+					var __token__=$('#__token__').val()
+ 					var user_name=$('#user_name').val()
+ 					var password=$('#password').val()
+ 					var password2=$('#password2').val()
+ 					var phone=$('#phone').val()
+ 					var email=$('#email').val()
+ 					var role_id=$('#role_id').val()
+ 					$.ajax({
+ 						url:"{:url('user/addAction')}",
+ 						data:{
+ 							user_name:user_name,
+ 							password:password,
+ 							phone:phone,
+ 							role_id:role_id,
+ 							email:email,
+							__token__:__token__,
+ 							html_type:'json',
+ 						},
+ 						type:'post',
+ 						dataType:'json',
+ 						success:function(res){
+							token()
+ 							console.log(res)
+ 							if(password2!=password ){
+ 								$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+'上下密码不一致',1500)
+ 							}
+ 							else if (res.status=='error') {
+ 								$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+ 							}else if (res.status=='ok') {
+ 								layer.msg(res.message,{icon:1,time:2000});
+ 								setTimeout(function(){$("#modal-demo").modal("hide") }, 2000);
+								setTimeout(function(){window.location.reload() }, 1500);
+ 							}
+ 						}
+ 					})
+ 				});
+
+ 				function updata(id,name,phone,rid){
+ 					$("#moda").modal("show")
+ 					$('#upid').val(id)
+ 					$('#user_name1').val(name)
+ 					$('#phone1').val(phone)
+ 					$('#role_id1').val(rid)
+ 					$('#uid').val(id)
+ 				}
+ 				$('#updateAction').click(function(){
+					var __token__=$('#__token__').val()
+ 					var id=$('#uid').val()
+ 					var user_name=$('#user_name1').val()
+ 					var password=$('#password1').val()
+ 					var password11=$('#password11').val()
+ 					var phone1=$('#phone1').val()
+ 					var role_id1=$('#role_id1').val()
+ 					$.ajax({
+ 						url:'{:url("user/updateAction")}',
+ 						data:{
+ 							id:id,
+ 							user_name:user_name,
+ 							password:password,
+ 							phone:phone1,
+ 							role_id1:role_id1,
+							__token__:__token__,
+ 						},
+ 						type:'post',
+ 						dataType:'json',
+ 						success:function(res){
+ 							token()
+ 							console.log(res)
+							if(password11!=password ){
+								$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+'上下密码不一致',1500)
+							}
+							else if (res.status=='error') {
+								$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+							}else if (res.status=='ok') {
+								layer.msg(res.message,{icon:1,time:2000});
+								setTimeout(function(){$("#modal-demo").modal("hide") }, 2000);
+								setTimeout(function(){window.location.reload() }, 1500);
+							}
+ 						}
+ 					})
+ 				})
+
+		//多删
+		function datadel(){
+			var __token__=$('#__token__').val()
+			var result=""
+			var count=0
+			$('.cbox').each(function () {
+				if ($(this).is(':checked')) {
+					result+=$(this).val()+",";
+					count++;
+				}
+			})
+			alert(result)
+			layer.confirm('确认要删除这'+count+'条吗？',function(index){
+				$.ajax({
+					url:"{:url('user/delAction')}",
+					data:{
+						id:result,
+						__token__:__token__,
+					},
+					type:'post',
+					dataType:'json',
+					success:function(res){
+						token()
+						console.log(res)
+						if (res.code==0) {
+							$('.cbox').each(function () {
+								if ($(this).is(':checked')) {
+									$(this).parents("tr").remove();
+								}
+							})
+							layer.msg('删除成功',{icon:1,time:2000});
+						}
+					}
+				})
+			});
+		}
+
+		//即时修改
+		$(function () {
+			//全选
+			$("#checkbox").click(function () {
+				$(":checkbox").attr("checked", true);
+			});
+			// 显示文本框并显示原值
+			$(document).on("click", ".click", function () {
+				var _this = $(this);
+				var old_val = _this.html(); // 获取要修改的值,原本的值
+				$(".focus").focus(); // 存在瑕疵，光标无法聚焦到文本最后的位置
+				_this.parent().html("<input type='text' name=" + old_val + " class='focus' value=" + old_val + " style='height: 25px;width: 100%;background-color: #F5F5F5' />"); // 显示文本框
+				$(":text").select(); // 改进，弥补瑕疵，全选文字
+			});
+			// 还原列表并修改数据
+			$(document).on("blur", ".focus", function () {
+				var _this = $(this);
+				// 获取所需参数
+				var key = _this.parent().attr("name");    //获取字段名
+				var old_val = _this.attr("name");        //获取原始值
+				var new_val = _this.val();               //获取修改值
+				var id = _this.parents("tr").attr("id"); //获取要修改的ID
+				//修改数据
+				$.post("{:url('user/updataAt')}",
+						{
+							key: key,
+							id: id,
+							name: old_val,
+							rolename: new_val,
+						},
+						function(msg) {
+							console.log(msg)
+							if(msg.code==1){
+								$.Huimodalalert(msg.status,1000)
+								_this.parent().html('<span class="click">' + old_val + '</span>');
+								token()
+							}else if(msg.code==0){
+								$.Huimodalalert(msg.status,1000)
+								_this.parent().html('<span class="click">' + new_val + '</span>');
+								token()
+
+							}
+						},'json')
+			})
+		})
+
+ 			</script>
+ 			<script>
+ 				/*管理员-删除*/
+ 				function admin_del(obj,id){
+ 					layer.confirm('确认要删除吗？',function(index){
+ 						$.ajax({
+ 							type: 'POST',
+ 							url:'{:url("user/delAction")}',
+ 							data:{
+ 								id:id,		
+ 							},
+ 							dataType: 'json', 							
+ 							success: function(data){
+ 								$(obj).parents("tr").remove();
+ 								layer.msg('已删除!',{icon:1,time:1000});
+ 							},
+ 							error:function(data) {
+ 								console.log(data.msg);
+ 							},
+ 						});		
+ 					});
+ 				}
+
+ 				/*管理员-编辑*/
+ 				function admin_edit(title,url,id,w,h){
+ 					layer_show(title,url,w,h);
+ 				}
+ 				/*管理员-停用*/
+ 				function admin_stop(obj,id){
+ 					layer.confirm('确认要停用吗？',function(index){
+						//此处请求后台程序，下方是成功后的前台处理……
+						$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+						$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+						$(obj).remove();
+						layer.msg('已停用!',{icon: 5,time:1000});
+					});
+ 				}
+
+ 				/*管理员-启用*/
+ 				function admin_start(obj,id){
+ 					layer.confirm('确认要启用吗？',function(index){
+						//此处请求后台程序，下方是成功后的前台处理……
+						$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+						$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+						$(obj).remove();
+						layer.msg('已启用!', {icon: 6,time:1000});
+					});
+ 				}
+
+ 			</script>
+ 		</body>
+ 		</html>

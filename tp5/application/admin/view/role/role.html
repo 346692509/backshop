@@ -1,0 +1,443 @@
+{include file="hea"}
+<body>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="page-container">
+		<div class="text-c"> 日期范围：
+			<input type="text" onfocus="" id="datemin" class="input-text Wdate" style="width:120px;">
+			-
+			<input type="text" onfocus="" id="datemax" class="input-text Wdate" style="width:120px;">
+			<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="">
+			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		</div>
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="add()" id="tian" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+		<input type="" id="__token__" name="__token__" value="{$Request.token}" />
+		<table class="table table-border table-bordered table-bg">
+			<thead>
+				<tr>
+					<th scope="col" colspan="9">员工列表</th>
+				</tr>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox"   name="" value=""></th>
+					<th width="40">ID</th>
+					<th >角色名</th>
+					<th >描述</th>
+					<th >是否启用</th>
+					<th >操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{volist name="arr" id="a"}
+				<tr class="text-c" id="{$a.id}">
+					<td><input type="checkbox" value="{$a.id}" class="cbox" name=""></td>
+					<td>{$a.id}</td>
+					<td name="name"><span class="click">{$a.name}</span></td>
+					<td name="description"><span class="click">{$a.description}</span></td>
+					<td class="td-status"><span class="label label-success radius">已启用</span></td>
+					<td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" id="admin_updata" href="javascript:;" onclick="admin_updata('{$a.id}','{$a.name}','{$a.description}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'{$a.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr>
+				{/volist}
+			</tbody>
+		</table>
+		<!-- 添加角色开始 -->
+		<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content radius" style="width: 800px">
+					<div class="modal-header">
+						<h3 class="modal-title">对话框标题</h3>
+						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+					</div>
+
+					<article class="page-container">
+						<form action="" method="post" class="form form-horizontal" id="form-admin-role-add">
+							<div class="row cl">
+								<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+									<input type="text" class="input-text" value="" placeholder="" id="name" name="roleName">
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-4 col-sm-3">备注：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+									<input type="text" class="input-text" value="" placeholder="" id="description" name="">
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-4 col-sm-3">网站角色：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+
+									<dl class="permission-list" id="add">
+									</dl>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</form>
+			</article>
+
+			<div class="modal-footer">
+				<button class="btn btn-primary" id="add1">确定</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 添加角色结束 -->
+<!--		修改开始-->
+<div id="modaldemo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">对话框标题</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<article class="page-container">
+				<form action="" method="post" class="form form-horizontal" id="form-admin-role-add">
+					<div class="row cl">
+						<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+						<div class="formControls col-xs-8 col-sm-9">
+							<input type="text" class="input-text" value="" placeholder="" id="name1" name="roleName"><input type="" id="uapdaid" value="" hidden="">
+						</div>
+					</div>
+					<div class="row cl">
+						<label class="form-label col-xs-4 col-sm-3">备注：</label>
+						<div class="formControls col-xs-8 col-sm-9">
+							<input type="text" class="input-text" value="" placeholder="" id="description1" name="">
+						</div>
+					</div>
+					<div class="row cl">
+						<label class="form-label col-xs-4 col-sm-3">网站角色：</label>
+						<div class="formControls col-xs-8 col-sm-9">
+							<dl class="permission-list" id="updata">
+									</dl>
+								</div>
+							</div>
+						</form>
+					</article>
+					<div class="modal-footer">
+						<button class="btn btn-primary" id="updateAction">确定</button>
+						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+					</div>
+				</div>
+			</div>
+			<span id="data"></span>
+		</div>
+		<!--		修改结束-->
+	</div>
+	<!--_footer 作为公共模版分离出去-->
+	<script  src="__ADMAN__/lib/jquery/1.9.1/jquery.min.js"></script> 
+	<script  src="__ADMAN__/lib/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="__ADMAN__/static/h-ui/js/H-ui.min.js"></script> 
+	<script  src="__ADMAN__/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+	<script>
+		//令牌
+		function token(){
+			$.ajax({
+				url:"{:url('common/token')}",
+				dataType:'json',
+				success:function(res){
+					console.log(res)
+					var token=res.token
+					$('#__token__').val(token)
+				}
+			})
+		}
+		// //show
+		// 	function show(){
+		// 		$.ajax({
+		// 			url:"{:url('role/show')}",
+		// 			dataType:'json',
+		// 			success:function (res) {
+		// 					var data=res.data;
+		// 					var tr='';
+		// 				$.each(data,function(key,val){
+		// 							tr+="<tr class='text-c' id='"+val.id+"'>"
+		// 							tr+="<td><input type='checkbox' value='"+val.id+"' class='cbox'></td>"
+		// 							tr+="<td>"+val.id+"</td>"
+		// 							tr+="<td name='name'><span class='click'>"+val.name+"</span></td>"
+		// 							tr+="<td name='description'><span class='click'>"+val.description+"</span></td>"
+		// 							tr+="<td class='td-status'><span class='label label-success radius'>已启用</span></td>"
+		// 							tr+="<td class='td-manage'><a style='text-decoration:none' onClick=admin_stop(this,'10001') href='javascript:;' title='停用'><i class='Hui-iconfont'>&#xe631;</i></a> "
+		// 							tr+="<a title='编辑' id='admin_updata' href='javascript:;' onclick=admin_updata('"+val.id+"','"+val.name+"','"+val.description+"') class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a>"
+		// 							tr+="<a title='删除' href='javascript:;' onclick=admin_del(this,'"+val.id+"') class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td>"
+		//
+		// 						})
+		// 						$(".table tbody").html(tr);
+		// 					}
+		// 		})
+		// 	}
+		// 	show()
+			// 添加数据
+			$('#add1').click(function(){
+				var __token__=$('#__token__').val()
+				var name=$('#name').val()
+				var description=$('#description').val()
+				var category_id = $("input:checkbox[name='message']:checked").map(function(index,elem) {
+					return $(elem).val();
+				}).get().join(',');
+				$.ajax({
+					url:'{:url("role/addAction")}',
+					data:{
+						name:name,
+						description:description,
+						category_id:category_id,
+						__token__:__token__
+					},
+					type:'post',
+					success:function(res){
+						token()
+						console.log(res)
+						if (res.status=='ok') {
+							$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+							$("#modal-demo").modal("hide")
+							setTimeout(function(){window.location.reload()}, 1500);
+						}
+						if (res.status=='error') {
+							$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+						}
+					}
+				})
+			})
+
+
+
+		// 添加数据show
+		function add(){
+			$("#modal-demo").modal("show")
+			$.ajax({
+				url:'{:url("role/permissionShow")}',
+				success:function(res){
+					var data=res.data
+					$('#data').val(data)
+					// console.log(res.data)
+					dl=''
+					$.each(data,function(key,va){
+						dl=dl+"<dt><label class=''><input type='checkbox' value=''>"+key+"</label></dt><dd><dl class='cl permission-list2'>"
+						$.each(va,function( key1,value1){
+							dl=dl+"<label class=''><input id='checkbox' name='message' type='checkbox' value='"+value1['id']+"'>"+value1['name']+"</label>"
+						})
+						dl=dl+"</dd>";
+					});
+					$('#add').html(dl)
+				}
+			})
+		}
+
+
+
+
+		// 修改数据
+		function admin_updata(id,name,description){
+			$("#modaldemo").modal("show")
+			$('#name1').val(name)
+			$('#uapdaid').val(id)
+			$('#description1').val(description)
+			var data=$('#data').val()
+			$.ajax({
+				url:'{:url("role/updata")}',
+				data:{
+					id:id,
+				},
+				type:'post',
+				success:function(res){
+					// console.log(res.data)
+					dl=''
+					$.each(data,function(key,value){
+						dl=dl+"<dt><label class=''><input type='checkbox' value=''>"+key+"</label></dt><dd><dl class='cl permission-list2'>"
+						$.each(value,function( key1,value1){
+							dl=dl+"<label class=''><input id='p"+value1['id']+"' class='cbox' name='map' type='checkbox' value='"+value1['id']+"'>"+value1['name']+"</label>"
+						})
+						dl=dl+"</dd>";
+					});
+					$('#updata').html(dl)
+					$.each(res.data,function(key,val){
+						var p_id="p"+val.permission_id
+						$("#"+p_id).prop('checked',true)
+					})
+				}
+			})
+		}
+
+		$('#updateAction').click(function(){
+			var __token__=$('#__token__').val()
+			var id=$('#uapdaid').val()
+			var name=$('#name1').val()
+			var description=$('#description1').val()
+			var category_id = $("input:checkbox[name='map']:checked").map(function(index,elem) {
+				return $(elem).val();
+			}).get().join(',');
+			$.ajax({
+				url:'{:url("role/updateAction")}',
+				data:{
+					id:id,
+					name:name,
+					description:description,
+					category_id:category_id,
+					__token__:__token__,
+				},
+				type:'post',
+				success:function(res){
+					token()
+					console.log(res)
+					if (res.status=='ok') {
+						$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+						setTimeout(function(){window.location.reload()}, 1500);
+					}
+					if (res.status=='error') {
+						$.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+					}
+				}
+			})
+		})
+
+			// 批量删除
+			function datadel(){
+				var result=""
+				var count=0
+				$('.cbox').each(function () {
+					if ($(this).is(':checked')) {
+						result+=$(this).val()+",";
+						count++;
+					}
+				})	
+				layer.confirm('确认要删除这'+count+'条吗？',function(index){
+					$.ajax({
+						url:"{:url('role/delAction')}",
+						data:{
+							id:result,
+						},
+						type:'post',
+						dataType:'json',
+						success:function(res){
+							console.log(res)
+							if (res.status=='ok') {
+								$('.cbox').each(function () {
+									if ($(this).is(':checked')) {
+										$(this).parents("tr").remove();
+									}
+								})	
+								layer.msg(res.status,{icon:1,time:2000});
+							}	
+						}
+					})
+				});
+			}
+
+		//即时修改
+		$(function () {
+			//全选
+			$("#checkbox").click(function () {
+				$(":checkbox").attr("checked", true);
+			});
+			// 显示文本框并显示原值
+			$(document).on("click", ".click", function () {
+				var _this = $(this);
+				var old_val = _this.html(); // 获取要修改的值,原本的值
+				$(".focus").focus(); // 存在瑕疵，光标无法聚焦到文本最后的位置
+				_this.parent().html("<input type='text' name=" + old_val + " class='focus' value=" + old_val + " style='height: 25px;width: 100%;background-color: #F5F5F5' />"); // 显示文本框
+				$(":text").select(); // 改进，弥补瑕疵，全选文字
+			});
+			// 还原列表并修改数据
+			$(document).on("blur", ".focus", function () {
+				var _this = $(this);
+				// 获取所需参数
+				var key = _this.parent().attr("name");    //获取字段名
+				var old_val = _this.attr("name");        //获取原始值
+				var new_val = _this.val();               //获取修改值
+				var id = _this.parents("tr").attr("id"); //获取要修改的ID
+				//修改数据
+				$.post("{:url('role/updataAt')}",
+						{
+							key: key,
+							id: id,
+							name: old_val,
+							rolename: new_val,
+						},
+						function(msg) {
+							console.log(msg)
+							if(msg.code==1){
+								$.Huimodalalert(msg.status,1000)
+								_this.parent().html('<span class="click">' + old_val + '</span>');
+								token()
+							}else if(msg.code==0){
+								$.Huimodalalert(msg.status,1000)
+								_this.parent().html('<span class="click">' + new_val + '</span>');
+								token()
+
+							}
+						},'json')
+			})
+		})
+
+
+		$(document).ready(function(){
+			$.ajax({
+				url:'{:url("role/permissionShow")}',
+				success:function(res){
+					var data1=res.data
+					$('#data').val(data1)
+				}
+			})
+		});
+
+
+		
+	</script>
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="__ADMAN__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+		<script type="text/javascript">
+			/*管理员-删除*/
+			function admin_del(obj,id){
+				var __token__=$('#__token__').val()
+				layer.confirm('确认要删除吗？',function(index){
+					$.ajax({
+						type: 'POST',
+						url:'{:url("role/delAction")}',
+							data:{
+								id:id,
+							},
+
+						dataType: 'json',
+						success: function(data){
+							if (data.status=='ok') {
+							$(obj).parents("tr").remove();
+							layer.msg('已删除!',{icon:1,time:1000});
+						}
+						},
+						error:function(data) {
+							console.log(data.msg);
+						},
+					});		
+				});
+			}
+
+			/*管理员-编辑*/
+			function admin_edit(title,url,id,w,h){
+				layer_show(title,url,w,h);
+			}
+			/*管理员-停用*/
+			function admin_stop(obj,id){
+				layer.confirm('确认要停用吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		
+		$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+		$(obj).remove();
+		layer.msg('已停用!',{icon: 5,time:1000});
+	});
+			}
+
+			/*管理员-启用*/
+			function admin_start(obj,id){
+				layer.confirm('确认要启用吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		
+		
+		$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+		$(obj).remove();
+		layer.msg('已启用!', {icon: 6,time:1000});
+	});
+			}
+		</script>
+	</body>
+	</html>
