@@ -1,0 +1,485 @@
+{include file="he"}
+<body>
+<div class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-category-add">
+        <div id="tab-category" class="HuiTab">
+            <div class="tabBar cl">
+                <span>通用信息</span>
+                <span>详细描述</span>
+                <span>其他信息</span>
+                <span id="attrbute">商品属性</span>
+                <span>商品相册</span>
+            </div>
+<!--           通用信息 ////////////////////////////////-->
+            <div class="tabCon">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3"></label>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">
+                        <span class="c-red">*</span>
+                        商品名称：</label>
+                    <div class="formControls col-xs-6 col-sm-6">
+                        <input type="text" class="input-text" value="" placeholder="" id="goods_name" name="">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">
+                        商品货号：</label>
+                    <div class="formControls col-xs-5 col-sm-5">
+                        <input type="text" class="input-text" value="" placeholder="" id="number" name="">
+                        如果您不输入商品货号，系统将自动生成一个唯一的货号。
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">
+                        <span class="c-red">*</span>
+                        商品分类：</label>
+                    <div class="formControls col-xs-4 col-sm-4">
+						<span class="select-box">
+						<select class="select" id="cate" name="sel_Sub" onchange="SetSubID(this);">
+
+						</select>
+						</span>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">
+                        <span class="c-red">*</span>
+                            商品品牌：</label>
+                    <div class="formControls col-xs-3 col-sm-3">
+						<span class="select-box">
+						<select class="select" id="brand" name="sel_Sub" onchange="catee();">
+						</select>
+						</span>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">    <span class="c-red">*</span>选择对应属性：</label>
+                    <div class="formControls col-xs-7 col-sm-7">
+                        <dl class="permission-list" id="show1">
+
+                        </dl>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">
+                        <span class="c-red">*</span>
+                        本店售价：</label>
+                    <div class="formControls col-xs-3 col-sm-3">
+                        <input type="text" class="input-text" value="" placeholder="" id="price" name="">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3"> <span class="c-red">*</span>商品库存数量：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="" id="inventory" style="width:200px;">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="col-9 col-offset-3">
+                        <input class="btn btn-primary radius" type="button" id="add1" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    </div>
+                </div>
+            </div>
+<!--           详细描述 ///////////////////////////////////////////-->
+            <div class="tabCon">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">首页模版：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="" style="width:200px;">
+                        <input type="button" class="btn btn-default" value="浏览">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="col-9 col-offset-3">
+                        <input class="btn btn-primary radius" type="button" id="add2" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    </div>
+                </div>
+            </div>
+<!--           其他信息 ///////////////////////////////////////-->
+            <div class="tabCon">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">商品重量：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="index.html" style="width:200px;">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">商品库存数量：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="index.html" style="width:200px;">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">库存警告数量：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="index.html" style="width:200px;">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">上架：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">是否为免运费商品：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="col-9 col-offset-3">
+                        <input class="btn btn-primary radius" type="button" id="add3" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    </div>
+                </div>
+            </div>
+<!--            商品属性//////////////////////////////-->
+            <div class="tabCon">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">
+                        <span class="c-red">*</span>
+                        商品分类：</label>
+                    <div class="formControls col-xs-4 col-sm-4">
+						<span class="select-box">
+						<select class="select" id="cate1" name="sel_Sub" onchange="cate2()">
+
+						</select>
+						</span>
+                    </div>
+                    <div class="col-3">
+                        　
+                    </div>
+                    <label class="form-label col-xs-4 col-sm-3">
+                        <span class="c-red">*</span>
+                        商品分类：</label>
+                    <div class="formControls col-xs-8 col-sm-8">
+                            <form action="" method="post" class="form form-horizontal" id="form-admin-role-add">
+                                    <div class="formControls col-xs-20 col-sm-20">
+                                        <dl class="permission-list" id="show">
+
+                                        </dl>
+                                    </div>
+                            </form>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="col-9 col-offset-3">
+                        <input class="btn btn-primary radius" type="button" id="add4" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    </div>
+                </div>
+            </div>
+<!--            商品相册/////////////////////////////////-->
+            <div class="tabCon">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">首页文件名：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="index.html" style="width:200px;">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">关键词：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">描述：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+                        <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="col-9 col-offset-3">
+                        <input class="btn btn-primary radius" type="button" id="add5" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__ADMAN__/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__ADMAN__/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__ADMAN__/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__ADMAN__/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__ADMAN__/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__ADMAN__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__ADMAN__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__ADMAN__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var goods_name=parent.$('#goods_name1').val()
+        $('#goods_name').val(goods_name)
+    });
+    ////////////////////////////////////////////
+    // 品牌下拉框
+    function catee(){
+        var cate_id = $('#brand  option:selected').val();
+    }
+    $(document).ready(function(){
+        var brand_id=parent.$('#brand_id').val()
+        $.ajax({
+            url:"{:url('Goodsbrand/show')}",
+            dataType:'json',
+            success:function (res) {
+                var data=res.data;
+                // var tr='<option value="0">品牌分类</option>';
+                var tr=''
+                for (var i=0; i < data.length; i++){
+                    tr+="<option value='"+data[i].brand_id+"'  >"+data[i].brand_name+"</option>"
+                }
+                $("#brand").html(tr);
+                $('#brand').val(brand_id);
+            }
+        })
+    });
+    ///////////////无限极下拉框
+    $(document).ready(function(){
+        var goods_cate_id=parent.$('#goods_cate_id').val()
+        $.ajax({
+            url:"{:url('Goods/cate')}",
+            success:function (res) {
+                $("#cate").html(res);
+                $('#cate').val(goods_cate_id);
+
+            }
+        })
+    });
+    /////////////////////////////////////属性下拉框
+    $("#attrbute").click(function(){
+        var brand_id=parent.$('#brand_id').val()
+        var attr_category_id=parent.$('#attr_category_id').val()
+        $.ajax({
+            url:"{:url('Attribute/attr_cate')}",
+            dataType:'json',
+            success:function (res) {
+                // console.log(res)
+                var data=res.data;
+                var tr='';
+                for (var i=0; i < data.length; i++){
+                    tr+="<option  value='"+data[i].cate_id+"' >"+data[i].cate_name+"</option>"
+                }
+                $("#cate1").html(tr);
+                $("#cate1").val(attr_category_id);
+            }
+        })
+    });
+////////////////////////////////////////////////////////////属性遍历
+        function cate2(){
+            var cate_id = $('#cate1  option:selected').val();
+            if (cate_id==null){
+                var cate_id=1;
+            }
+            $.ajax({
+                url:"{:url('Attributeadd/detailsshow')}",
+                data:{
+                    ibute_id:cate_id
+                },
+                type: 'POST',
+                dataType:'json',
+                success:function (res) {
+                    // console.log(res)
+                    dl='';
+                    $.each(res.data,function( key,va){
+                        // console.log(va)
+                        dl=dl+"<dt><label class=''><input type='checkbox' value='"+va['ibute_id']+"'>"+key+"</label></dt><dd><dl class='cl permission-list2'>"
+                        $.each(va,function( key1,value1){
+                            // console.log(value1)
+                            dl=dl+"<label class=''><input id='p"+value1['id']+"' name='message' type='checkbox' ibute_id='"+value1['ibute_id'] +"'  value='"+value1['id']+"'>"+value1['details_name']+"</label>　"
+                        })
+                        dl=dl+"</dd>";
+                    })
+                    $('#show').html(dl)
+                }
+            })
+        }
+    cate2()
+    ///////////////////////////////////////////////////////////////////////////////////////////1111
+    //通用页面单选框信息
+    $(document).ready(function(){
+        var goods_id=parent.$('#aid').val()
+        $.ajax({
+            url:"{:url('Attributeadd/product')}",
+            data:{
+                goods_id:goods_id,
+            },
+            dataType:'json',
+            type:'post',
+            success:function (res) {
+                dl='';
+                $.each(res.data,function( key,va){
+                    // console.log(va)
+                    dl=dl+"<dt><label class=''><input type='checkbox' value='"+va['ibute_id']+"'>"+key+"</label></dt><dd><dl class='cl permission-list2'>"
+                    $.each(va,function( key1,value1){
+                        // console.log(value1)
+                        dl=dl+"<label class=''><input aid='456' bid='789' checked id='q"+value1['id']+"'  attr_details_id_name='"+value1['details_name']+"' name='message1"+va[0].id+"' type='radio' goods_attr_id='"+value1['goods_attr_id'] +"'  value='"+value1['id']+"'>"+value1['details_name']+"</label>　"
+                    })
+                    dl=dl+"</dd>";
+                })
+                $('#show1').html(dl)
+            }
+        })
+    });
+
+    $("#add1").click(function(){
+        var attr_details_id = $("input:radio[aid='456']:checked").map(function(index,elem) {
+            // return $(this).attr('goods_attr_id');//这段代码取任何值都好使
+            return $(elem).val()
+        }).get().join(',');
+        var attr_details_name = $("input:radio[bid='789']:checked").map(function(index,elem) {
+            return $(this).attr('attr_details_id_name');//这段代码取任何值都好使
+        }).get().join(',');
+        var goods_id=parent.$('#aid').val()
+        var number=$('#number').val()
+        var price=$('#price').val()
+        var inventory=$('#inventory').val()
+        $.ajax({
+            url:"{:url('Attributeadd/productadd_action')}",
+            data:{
+                goods_id:goods_id,
+                attr_details_id:attr_details_id,
+                attr_details_name:attr_details_name,
+                price:price,
+                inventory:inventory,
+                number:number,
+            },
+            dataType:'json',
+            type:'post',
+            success:function (res) {
+                console.log(res)
+                if (res.status=='ok') {
+                    $.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+                } else {
+                    $.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+                }
+            }
+        });
+    });
+    ////////////////////////////////////////////////////////////////////////////////////////////2222
+    $("#add2").click(function(){
+        alert(2)
+    });
+    ////////////////////////////////////////////////////////////////////////////////////////////3333
+    $("#add3").click(function(){
+        alert(3)
+    });
+    ////////////////////////////////////////////////////////////////////////////////////////////4444
+    ///添加属性
+    $("#add4").click(function(){
+        var aid=parent.$('#aid').val()
+        var category_id = $("input:checkbox[name='message']:checked").map(function(index,elem) {
+            return $(elem).val()+"-"+$(this).attr('ibute_id');
+        }).get().join(',');
+        var cate_id = $("#cate1").val()
+        $.ajax({
+            url:"{:url('Attributeadd/goodsattr_add')}",
+            data:{
+                aid:aid,
+                category_id:category_id,
+                cate_id:cate_id,
+            },
+            dataType:'json',
+            type:'post',
+            success:function (res) {
+                // console.log(res)
+                if (res.status=='ok') {
+                    $.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+                } else {
+                    $.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+                }
+            }
+        })
+
+    });
+    ///属性默认中
+    $("#attrbute").click(function(){
+        var goods_id=parent.$('#aid').val()
+        $.ajax({
+            url:"{:url('Attributeadd/attrbute_look')}",
+            data:{
+                goods_id:goods_id,
+            },
+            dataType:'json',
+            type:'post',
+            success:function (res) {
+                // console.log(res.data)
+                $.each(res.data,function(key,val){
+                    var p_id="p"+val.attr_details_id
+                    console.log(p_id)
+                    $("#"+p_id).prop('checked',true)
+                })
+            }
+        })
+    });
+    ////////////////////////////////////////////////////////////////////////////////////////////5555
+    $("#add5").click(function(){
+        alert(5)
+    });
+////////////////////////////////////////////////////////////////////////////////////////////
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#tab-category").Huitab({
+            index:0
+        });
+        $("#form-category-add").validate({
+            rules:{
+
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                // $(form).ajaxSubmit();
+                var index = parent.layer.getFrameIndex(window.name);
+                //parent.$('.btn-refresh').click();
+                parent.layer.close(index);
+            }
+        });
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

@@ -5,7 +5,7 @@ use Db;
 use gmars\rbac\Rbac;
 class Role extends Common{
 
-	public function list(){
+	public function index(){
 		$arr=db::query('select * from role ');
 		$this->assign('arr',$arr);
 		return $this->fetch('role');

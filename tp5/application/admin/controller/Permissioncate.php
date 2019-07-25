@@ -5,7 +5,7 @@ use Request;
 use gmars\rbac\Rbac;
 class Permissioncate extends Common{
 
-	public function list(){
+	public function index(){
 		$Permissioncate =new PermissioncateModel;
 		$obj=$Permissioncate->select();
 		$this->assign('arr',$obj);        //查询权限表数据传值

@@ -19,7 +19,7 @@ class Login extends Controller
         }elseif($res['user_name']!=$user || $res['password']!=md5($pwd)){
             $arr=['status'=>'error','code'=>'2','message'=>'用户名或密码错误'];
         }else{
-            $arr=['status'=>'seccuss','code'=>'0','message'=>'登录成功'];
+            $arr=['status'=>'ok','code'=>'0','message'=>'登录成功'];
             Session::set('name',$user);
              $rbac= new Rbac();
              $rbac->cachePermission($res['id']);

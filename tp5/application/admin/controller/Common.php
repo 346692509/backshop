@@ -16,8 +16,8 @@ class Common extends Controller{
         $module=Request::module();
         $controller=Request::controller();
         $action=Request::action();
-        $arr_controller=['Permission','Permissioncate','Role','User'];
-        $arr_action=['list','delaction','updateaction','addaction','updataat'];
+        $arr_controller=['permission','permissioncate','role','user','brand'];
+        $arr_action=['list','delaction','updateaction','addaction','updataat',];
         if (in_array($controller, $arr_controller)){
             if (in_array($action,$arr_action)){
                 $str="$module/$controller/$action";

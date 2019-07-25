@@ -1,0 +1,156 @@
+{include file="he"}
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 产品分类 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<table class="table">
+    <tr>
+        <td width="200" class="va-t">
+            <ul id="treeDemo" class="ztree"></ul>
+            　　　　　<input type="hidden" id="caid" value="0">
+        </td>
+<!--        ///////////////////////////////////////////////////////////////-->
+        <td class="va-t"><div class="page-container">
+            <form action="" method="post" class="form form-horizontal" id="form-user-add">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">
+                        <span class="c-red">*</span>
+                        所处节点：</label>
+                    <div class="formControls col-xs-6 col-sm-3">
+                        <input type="text" class="input-text" value="" placeholder="现在处于一级节点" id="aa"  readonly unselectable="on" style="background: #EBEBEB;">
+                    </div>
+                    <input class="	btn btn-danger radius" type="button" id="del"  value="&nbsp;&nbsp;删除&nbsp;&nbsp;">
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">
+                        <span class="c-red">*</span>
+                        分类名称：</label>
+                    <div class="formControls col-xs-6 col-sm-3">
+                        <input type="text" class="input-text" value="" placeholder="" id="name" >
+                    </div>
+                    <input class="btn btn-primary radius" type="button" id="add" value="&nbsp;&nbsp;添加&nbsp;&nbsp;">
+                    <input class="btn btn-warning radius" type="button" id="update" value="&nbsp;&nbsp;修改&nbsp;&nbsp;">
+
+                </div>
+                <div class="row cl">
+
+                </div>
+            </form>
+        </div>
+        </td>
+    </tr>
+</table>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__ADMAN__/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__ADMAN__/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__ADMAN__/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__ADMAN__/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__ADMAN__/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript">
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            showLine: false,
+            selectedMulti: false
+        },
+        data: {
+            simpleData: {
+                enable:true,
+                idKey: "id",
+                pIdKey: "pid",
+                rootPId: ""
+            }
+        },
+        callback: {
+            beforeClick: function(treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                    $('#caid').val(treeNode.id)
+                    $('#aa').val('当前所处'+treeNode.name+'节点下')
+                // console.log(treeNode)
+                if (treeNode.isParent) {
+                    // zTree.expandNode(treeNode);
+                    return false;
+                } else {
+                    demoIframe.attr("src",treeNode.file + ".html");
+                    return true;
+                }
+            }
+        }
+    };
+
+    var code;
+    function showCode(str) {
+        if (!code) code = $("#code");
+        code.empty();
+        code.append("<li>"+str+"</li>");
+    }
+
+    $(document).ready(function(){
+        $.ajax({
+            url:"{:url('Goodscate/show')}",
+            success:function (res) {
+                var data=res.data
+                var t = $("#treeDemo");
+                t = $.fn.zTree.init(t, setting, data);
+                demoIframe = $("#testIframe");
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+            }
+        })
+    });
+    $("#add").click(function () {
+        var name=$("#name").val()
+        var id=$("#caid").val()
+        $.ajax({
+            url:"{:url('Goodscate/addAction')}",
+            data:{
+                id:id,
+                name:name
+            },
+            type:'post',
+            dataType: "json",
+            success:function (res) {
+                console.log(res)
+                // $('#pid'+id).next().append('<li>'+name+'</li>')
+            }
+        })
+    })
+
+    $("#update").click(function () {
+        var name=$("#name").val()
+        var id=$("#caid").val()
+        $.ajax({
+            url:"{:url('Goodscate/updateAction')}",
+            data:{
+                id:id,
+                name:name
+            },
+            type:'post',
+            dataType: "json",
+            success:function (res) {
+                console.log(res)
+                // $('#pid'+id).next().append('<li>'+name+'</li>')
+            }
+        })
+    })
+    $("#del").click(function (obj) {
+        var id=$("#caid").val()
+        layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+            url:"{:url('Goodscate/delAction')}",
+            data:{
+                id:id,
+            },
+            type:'post',
+            dataType: "json",
+            success:function (res) {
+                console.log(res)
+                $(obj).parents("li").remove();
+                layer.msg('已删除!',{icon:1,time:1000});
+                // $('#pid'+id).next().append('<li>'+name+'</li>')
+            }
+        })
+    })
+    });
+</script>
+</body>
+</html>

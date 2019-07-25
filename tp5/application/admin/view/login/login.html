@@ -101,6 +101,7 @@
 				type:'post',
 				dataType:'json',
 				success:function(res){
+					console.log(res)
 					if (res.code==1){
 						$('#shuchu').html('验证码错误')
 						$('#code_photo').attr('src','{:captcha_src()}?'+Math.random())

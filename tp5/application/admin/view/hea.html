@@ -16,6 +16,22 @@
 <link rel="stylesheet" type="text/css" href="__ADMAN__/static/h-ui.admin/css/style.css" />
 <script type="text/javascript" src="__ADMAN__/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
-
 <title>后台</title>
+    <script  src="__ADMAN__/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script  src="__ADMAN__/lib/layer/2.4/layer.js"></script>
+    <script  src="__ADMAN__/static/h-ui/js/H-ui.min.js"></script>
+    <script  src="__ADMAN__/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+    <script>
+        function token(){
+            $.ajax({
+                url:"{:url('common/token')}",
+                dataType:'json',
+                success:function(res){
+                    console.log(res)
+                    var token=res.token
+                    $('#__token__').val(token)
+                }
+            })
+        }
+    </script>
 </head>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>详情页面</title>
+<link href="__ADMAN__/goods_show/style/shopdetail.css" rel="stylesheet" type="text/css">
+
+<script src="__ADMAN__/goods_show/js/jquery-1.9.1.min.js"></script>
+<script src="__ADMAN__/goods_show/js/common.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+	  var showproduct = {
+		  "boxid":"showbox",
+		  "sumid":"showsum",
+		  "boxw":400,
+		  "boxh":550,
+		  "sumw":60,//列表每个宽度,该版本中请把宽高填写成一样
+		  "sumh":60,//列表每个高度,该版本中请把宽高填写成一样
+		  "sumi":7,//列表间隔
+		  "sums":5,//列表显示个数
+		  "sumsel":"sel",
+		  "sumborder":1,//列表边框，没有边框填写0，边框在css中修改
+		  "lastid":"showlast",
+		  "nextid":"shownext"
+		  };//参数定义	  
+	 $.ljsGlasses.pcGlasses(showproduct);//方法调用，务必在加载完后执行
+	 $(function(){
+
+		$('.tabs a').click(function(){
+			
+			var $this=$(this);
+			$('.panel').hide();
+			$('.tabs a.active').removeClass('active');
+			$this.addClass('active').blur();
+			var panel=$this.attr("href");
+			$(panel).show();				
+			return fasle;  //告诉浏览器  不要纸箱这个链接
+			})//end click
+
+
+			$(".tabs li:first a").click()   //web 浏览器，单击第一个标签吧
+		})//end ready
+		
+		$(".centerbox li").click(function(){
+			$("li").removeClass("now");
+			$(this).addClass("now")
+			});
+});
+</script>
+</head>
+<body>
+<!-----商品详情部分------->
+<div class="shopdetails" style="width: 1400px">
+	<!-------放大镜-------->
+	<div id="leftbox">
+	<div id="showbox">
+  <img src="__ADMAN__/goods_show/images/shopdetail/img01.png" width="400" height="550" />
+  <img src="__ADMAN__/goods_show/images/shopdetail/img02.png" width="400" height="550" />
+  <img src="__ADMAN__/goods_show/images/shopdetail/img03.png" width="400" height="550" />
+  <img src="__ADMAN__/goods_show/images/shopdetail/img04.png" width="400" height="550" />
+  <img src="__ADMAN__/goods_show/images/shopdetail/img05.png" width="400" height="400" />
+  <img src="__ADMAN__/goods_show/images/shopdetail/img01.png" width="400" height="400" />
+
+	</div><!--展示图片盒子-->
+		<div id="showsum"></div><!--展示图片里边-->
+		<p class="showpage">
+ 		 <a href="javascript:void(0);" id="showlast"> < </a>
+  		 <a href="javascript:void(0);" id="shownext"> > </a>
+		</p>
+	</div>
+    <!----中间----->
+    <div class="centerbox">
+    	<p class="imgname">叠叠杯水杯茶杯套杯陶瓷咖啡牛奶杯具套装</p>
+    	<p class="Aprice">价格：<samp>￥89.00</samp></p>
+    	<p class="price">促销价：<samp>￥49.00</samp></p>
+    	<p class="youhui">店铺优惠：<samp>购物满两件打八折</samp></p>
+    	<p class="kefu">客服：</p>
+        <ul>
+        <li class="kuanshi">款式：</li>
+        <li class="now shopimg"><a href="#" title="熊猫套装"><img src="__ADMAN__/goods_show/images/shopdetail/kuanshi01.jpg" width="45"></a></li>
+        <li class="shopimg"><a href="#" title="铁塔套装"><img src="__ADMAN__/goods_show/images/shopdetail/kuanshi02.jpg" width="45"></a></li>
+        <li class="shopimg"><a href="#" title="创意胡子"><img src="__ADMAN__/goods_show/images/shopdetail/kuanshi03.jpg" width="45"></a></li>
+        <li class="shopimg"><a href="#" title="四色小猫"><img src="__ADMAN__/goods_show/images/shopdetail/kuanshi04.jpg" width="45"></a></li>
+        </ul>
+        <div class="clear"></div>
+        <p class="chima">尺码：</p>
+        <p class="buy"><a href="#" id="firstbuy">立即购买</a><a href="#">加入购物车</a></p>
+   		<div class="clear"></div>
+        <div class="fenx"><a href="#"><img src="__ADMAN__/goods_show/images/shopdetail/tell07.png"></a></div>
+        <p class="fuwu">服务承诺：</p>
+        <p class="pay">支付方式：</p>
+    </div>
+	<!-----右边------->
+   <div class="rightbox">
+    	<p class="name">——热卖商品</p>
+    	<img src="__ADMAN__/goods_show/images/shopdetail/reimai02.jpg" width="130" height="180">
+		<p>￥58元</p>
+     
+    	<img src="__ADMAN__/goods_show/images/shopdetail/reimai01.jpg" width="130" height="180">
+		<p>￥58元</p>
+
+    	<img src="__ADMAN__/goods_show/images/shopdetail/reimai03.jpg" width="130" height="180">
+		<p>￥58元</p>
+    </div>
+</div>
+<!-----商品详情部分结束------->
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+        var goods_id=parent.$('#goods_id1').val()
+        $.ajax({
+            url:"{:url('Attributeadd/goods_show')}",
+            data:{
+                goods_id:goods_id,
+            },
+            dataType:'json',
+            type:'post',
+            success:function (res) {
+                console.log(res.data)
+                // if (res.status=='ok') {
+                //     $.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+                //     layer.msg('已删除!',{icon:1,time:1000});
+                // } else {
+                //     $.Huimodalalert('<i class="Hui-iconfont">&#xe691;</i>  '+res.message,1500)
+                // }
+            }
+        })
+    });
+</script>

@@ -5,7 +5,7 @@ use Db;
 use Request;
 class User extends Common{
 
-	public function list(){
+	public function index(){
 		$res=db::query('select `user`.id ,`user`.user_name,`user`.mobile,`user`.create_time,role.name,role.`status`,role.id as rid from `user` inner join user_role  on user.id=user_role.user_id inner join role on user_role.role_id=role.id');
 		$arr=db('role')->select();  //role表的信息
 		$this->assign('arr',$arr);        

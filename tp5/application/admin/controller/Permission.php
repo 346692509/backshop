@@ -7,12 +7,12 @@ use Request;
 use gmars\rbac\Rbac;
 use Db;
 class Permission extends Common{
-    public function list(){
+    public function index(){
         $arr=Db::query('select p.id,p.name,pc.name as pcname,p.path,p.description,p.create_time,pc.id as pcid from permission as p inner join permission_category as pc on p.category_id=pc.id');
         $this->assign('arr',$arr);
         $crr=db('permission_category')->select();
         $this->assign('crr',$crr);
-        return $this->fetch();      
+        return $this->fetch('list');
     }
     public function addAction(){
 		$data=Request::post();

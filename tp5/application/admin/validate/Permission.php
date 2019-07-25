@@ -28,7 +28,7 @@ class Permission extends Validate
         'name.require'     => '权限节点名称不能为空',
         'name.max'     => '权限节点名称不能超过100',
         'name.min'     => '权限节点名称不能小于2',
-        'rolename.token'     => '令牌错误',
+        'name.token'     => '令牌错误',
         'description.require'     => '描述名称不能为空',
         'description.max'     => '描述不能超过100',
         'description.min'     => '描述不能小于2',
